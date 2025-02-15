@@ -1,19 +1,33 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import { nodePolyfills } from 'vite-plugin-node-polyfills'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import { NodeGlobalsPolyfillPlugin } from "@esbuild-plugins/node-globals-polyfill";
+import { NodeModulesPolyfillPlugin } from "@esbuild-plugins/node-modules-polyfill";
 
 export default defineConfig({
-  base: '/Web-3.0-Wallet/',
-  plugins: [react(), nodePolyfills()],
+  base: "/Web-3.0-Wallet/",
+  plugins: [react()],
   define: {
-    global: "window",  // 🔹 Ensure 'global' is defined
+    global: "window", // Fix for global object
   },
   resolve: {
     alias: {
-      buffer: 'buffer/',
-    }
+      buffer: "buffer/", // Fix for Buffer
+    },
   },
   optimizeDeps: {
-    include: ['buffer'], // 🔹 Ensure Buffer is included
+    esbuildOptions: {
+      plugins: [
+        NodeGlobalsPolyfillPlugin({
+          process: true,
+          buffer: true,
+        }),
+        NodeModulesPolyfillPlugin(),
+      ],
+    },
+  },
+  build: {
+    rollupOptions: {
+      external: ["vite-plugin-node-polyfills/shims/process", "vite-plugin-node-polyfills/shims/buffer"],
+    },
   },
 });
