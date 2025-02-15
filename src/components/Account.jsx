@@ -23,7 +23,7 @@ function Account() {
             });
     
             // console.log("Account Type:", typeof acc);
-            // console.log("API Response:", response.data);
+            console.log("API Response:", response.data);
     
             // Extract balance in lamports and convert to SOL
             const balanceLamports = response.data.result.value; // Solana returns balance in `lamports`
@@ -37,6 +37,7 @@ function Account() {
         }
     }
     
+
 
     async function addSol() {
         if (!seedSol) {
@@ -59,6 +60,8 @@ function Account() {
         setSolWallet((prev) => [...prev, newAccount]);
         setAccountNumber((prev) => prev + 1);
     }
+    
+    
 
 
     // for etherium.............

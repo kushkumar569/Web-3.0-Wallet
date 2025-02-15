@@ -1,8 +1,13 @@
 import { useState } from 'react';
 import * as bip39 from 'bip39';
+import { Buffer } from "buffer";
 
-let seedSol = ""; // Define a global variable to store the seed of solana
-let seedEth = "";
+if (!window.Buffer) {
+    window.Buffer = Buffer;
+}
+
+let seedSol = null; // Define globally as null initially
+let seedEth = null;
 
 function Mnemonic() {
     const [isGenerated, setIsGenerated] = useState(false);
@@ -19,14 +24,12 @@ function Mnemonic() {
     }
 
     return (
-        <>
         <div className='flex justify-center p-10'>
             {!isGenerated && <button onClick={generate} className="p-2 bg-blue-500 text-white rounded text-xl">
                 Generate Wallet
             </button>}
             {isGenerated && <ShowMnemonic array={mnemonicWords} />}
         </div>
-        </>
     );
 }
 
@@ -50,4 +53,4 @@ function EachMnemonic({ mne }) {
 
 // Export both Mnemonic and seed
 export default Mnemonic;
-export { seedSol,seedEth };
+export { seedSol, seedEth };
