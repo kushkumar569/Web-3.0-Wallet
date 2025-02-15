@@ -1,8 +1,11 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { nodePolyfills } from 'vite-plugin-node-polyfills'
-// https://vitejs.dev/config/
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+// import NodePolyfills from 'vite-plugin-node-polyfills';
+
 export default defineConfig({
- plugins: [react(), nodePolyfills()],
- base: '/Web-3.0-Wallet/',
-})
+  plugins: [
+    react()
+    // NodePolyfills()
+  ],
+  base: '/Web-3.0-Wallet/',
+});
